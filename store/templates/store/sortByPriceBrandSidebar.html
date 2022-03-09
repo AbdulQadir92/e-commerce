@@ -1,0 +1,68 @@
+{% load static %}
+
+{% block content %}
+    <div class="ml-md-3 ml-1 mr-3 mr-md-0">
+        <h5>Brand</h5>
+        <ul class="nav flex-column ml-md-3 ml-0">
+            {% for brand in brands %}
+                {% if brand == checked_brand %}
+                <li class="nav-item ml-2">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="{{ brand.id }}" checked="checked">
+                        <a href="{% url 'brand' brand.id %}" class="nav-link">
+                            {{ brand }}
+                        </a>
+                        <a href="{% url 'more_categories' brand.subcategory.id %}" class="d-none"></a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item ml-2">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="{{ brand.id }}">
+                        <a href="{% url 'brand' brand.id %}" class="nav-link">
+                            {{ brand }}
+                        </a>
+                    </div>
+                </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+        <h5 class="mt-5 primary-color">Price</h5>
+        <ul class="nav flex-column ml-md-3 ml-2" id="sortByPriceUl">
+
+            <li class="nav-item">
+                <a href="{% url 'sort_by_price_brand' checked_brand.id '0-50' %}" class="nav-link">
+                     Up to $50
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'sort_by_price_brand' checked_brand.id '50-100' %}" class="nav-link">
+                    $50 to $100
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'sort_by_price_brand' checked_brand.id '100-200' %}" class="nav-link">
+                    $100 to $200
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'sort_by_price_brand' checked_brand.id '200-400' %}" class="nav-link">
+                    $200 to $400
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'sort_by_price_brand' checked_brand.id '400-600' %}" class="nav-link">
+                    $400 to $600
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'sort_by_price_brand' checked_brand.id '601-100000' %}" class="nav-link">
+                    Above $600
+                </a>
+            </li>
+
+        </ul>
+    </div>
+{% endblock %}
+

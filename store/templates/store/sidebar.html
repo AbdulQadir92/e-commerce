@@ -1,0 +1,93 @@
+<!--{% load static %}-->
+
+<!--{% block content %}-->
+
+<!--    &lt;!&ndash; Categories &ndash;&gt;-->
+<!--    <div class="card shadow border bg-white" id="sidebar">-->
+<!--      <div class="card-body py-2 px-2">-->
+
+<!--        <div class="mb-2">-->
+<!--          <i class="fa fa-times float-right text-danger mr-2" onclick="toggleSidebar();" style="cursor: pointer;" aria-hidden="true"></i>-->
+<!--        </div>-->
+
+<!--        <div class="card-title border-bottom mb-1 ml-2">-->
+<!--          <h4 style="font-weight: bold;" class="primary-color">-->
+<!--            Categories-->
+<!--          </h4>-->
+<!--        </div>-->
+
+<!--        <ul class="nav flex-column sidebar-ul">-->
+<!--          {% for category in sidebarData.categories %}-->
+<!--             <li class="nav-item"-->
+<!--                 id="{{ category.id }}"-->
+<!--                 onmouseenter="showSubcategories(this);"-->
+<!--                 onmouseleave="hideSubcategories(this);"-->
+<!--             >-->
+<!--               <a href="JavaScript:Void(0);" class="nav-link">-->
+<!--                  {{ category.category }} {{ category.category.id }}-->
+
+
+
+<!--                  &lt;!&ndash; Subcategories &ndash;&gt;-->
+<!--                  <div class="card shadow bg-white border d-none"-->
+<!--                       id="subcategories"-->
+
+<!--                  >-->
+<!--                      <div class="d-flex">-->
+<!--                        <div class="invisibleDiv"></div>-->
+<!--                        <div class="card-body py-2 px-2">-->
+<!--                          <ul class="nav flex-column sidebar-ul">-->
+
+<!--                            {% for subcategory in category.subcategories %}-->
+<!--                               <li class="nav-item"-->
+<!--                                   data-id="{{ subcategory.category.id }}"-->
+<!--                                   id="{{ subcategory.id }}"-->
+<!--                                    onmouseenter="showMoreCategories(this);"-->
+<!--                                    onmouseleave="hideMoreCategories(this);"-->
+<!--                                 >-->
+<!--                                 <a href="JavaScript:Void(0);" class="nav-link">-->
+<!--                                    {{ subcategory.subcategory }} {{ subcategory.category.id }}-->
+
+
+
+
+
+<!--                                 </a>-->
+<!--                               </li>-->
+<!--                            {% endfor %}-->
+
+<!--                          </ul>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  &lt;!&ndash; Subcategories / &ndash;&gt;-->
+
+<!--               </a>-->
+<!--             </li>-->
+<!--          {% endfor %}-->
+<!--        </ul>-->
+
+<!--      </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; Categories / &ndash;&gt;-->
+
+<!--   &lt;!&ndash; More Categories &ndash;&gt;-->
+<!--  <div class="card shadow bg-white d-none" id="moreCategories">-->
+<!--    <div class="card-body border py-2 px-2">-->
+<!--      <ul class="nav flex-column sidebar-ul">-->
+<!--          {% for moreCategory in categories.more_categories %}-->
+<!--            {% if moreCategory %}-->
+<!--             <li class="nav-item" data-id="{{ moreCategory.subcategory.id }}" id="{{ moreCategory.id }}">-->
+<!--               <a href="JavaScript:Void(0);" class="nav-link">-->
+<!--                {{ moreCategory }} {{ moreCategory.subcategory.id }}-->
+<!--             </a>-->
+<!--             </li>-->
+<!--            {% endif %}-->
+<!--          {% endfor %}-->
+<!--      </ul>-->
+<!--     </div>-->
+<!--  </div>-->
+<!--  &lt;!&ndash; More Categories / &ndash;&gt;-->
+
+
+<!--{% endblock %}-->

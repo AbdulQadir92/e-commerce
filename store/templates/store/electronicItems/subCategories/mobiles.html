@@ -1,0 +1,47 @@
+{% load static %}
+
+{% block content %}
+{% for subcategory in category.subcategories %}
+    <!-- Mobiles -->
+    <li class="nav-item category-nav-item px-2"
+        onmouseenter="showSubcategories('smartPhonesMoreCategories');"
+        onmouseleave="removeSubcategories('smartPhonesMoreCategories')">
+        <a href="{% url 'more_categories' -1 %}" class="nav-link">
+
+          <div class="d-flex justify-content-between">
+             <span>
+<!--               Mobiles-->
+                 {{ subcategory.subcategory }}
+             </span>
+             <i class="fa fa-chevron-right mr-0 mt-1"></i>
+          </div>
+
+          <div class="d-none more-categories" id="smartPhonesMoreCategories">
+              <div class="d-flex">
+                  <div class="invisibleDiv"></div>
+                  <div class="card shadow bg-white" style="width: 250px;">
+                      <div class="card-body border pb-2 px-0 pt-1">
+                          <ul class="nav flex-column">
+
+                              <!-- Apple iPhones -->
+                              <li class="nav-item category-nav-item px-2"
+                                  onmouseenter="addGreyBackground(this);"
+                                  onmouseleave="removeGreyBackground(this);"
+                              >
+                                  <a href="#" class="nav-link">
+                                      Apple iPhones
+
+                                  </a>
+                              </li>
+
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+        </a>
+    </li>
+    <!-- Mobiles / -->
+{% endfor %}
+{% endblock %}

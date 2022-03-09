@@ -1,0 +1,29 @@
+{% extends 'store/main.html' %}
+
+{% block content %}
+    <h4 class="text-center primary-color">Login</h4>
+    <div class="row mx-5">
+        <div class="card shadow bg-white rounded border col-lg-5 col-sm-7 m-auto">
+            <div class="card-body">
+                <form action="" method="" id="loginForm">
+                    <a href="{% url 'login' %}" id="loginUrl" class="d-none"></a>
+                    <div class="form-group">
+                        <label for="loginPhoneOrEmail">Phone Number / Email</label>
+                        <input type="email" class="form-control form-control-sm" id="loginPhoneOrEmail" required>
+                        <small class="form-text text-danger d-none" id="loginPhoneOrEmailMsg">Phone number/email is incorrect</small>
+                        <small class="form-text text-danger d-none" id="noAccountExistsMsg">No account with the given number exists</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control form-control-sm" id="password" required>
+                        <small class="form-text text-danger d-none" id="loginPasswordMsg">Or password is incorrect</small>
+                    </div>
+                    <input type="submit" class="btn btn-sm primary-bg primary-outline float-right" value="Login">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-2">
+        <div>Not registered? <a class="btn-link secondary-color-2" href="{% url 'register' %}">Register</a></div>
+    </div>
+{% endblock %}

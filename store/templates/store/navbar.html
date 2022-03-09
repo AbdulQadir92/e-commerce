@@ -1,0 +1,75 @@
+{% load static %}
+
+{% block content %}
+<nav class="navbar navbar-expand-md navbar-dark primary-bg">
+  <a class="navbar-brand" href="{% url 'home' %}">E-Commerce</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+<!--      <li class="nav-item active">-->
+<!--        <a href="{% url 'home' %}" class="nav-link">Home</a>-->
+<!--      </li>-->
+    </ul>
+
+    <form class="form-inline mr-auto w-50 mt-3 mt-sm-0 mb-lg-0" style="min-width: 343px;">
+        <div class="input-group w-100 mr-md-2 mr-0">
+          <input type="text" class="form-control form-control-sm" placeholder="Search" aria-label="search">
+          <div class="input-group-append">
+            <button type="button" class="py-0 btn primary-bg primary-outline text-white" id="">Search</button>
+          </div>
+        </div>
+    </form>
+
+    <ul class="navbar-nav">
+        <div class="d-flex align-items-center mt-md-0 mt-2">
+            <li class="nav-item mr-auto mr-md-2">
+                <!-- Example split danger button -->
+                <div class="btn-group mt-1 mb-1">
+                  <button type="button" class="btn btn-sm primary-bg primary-outline text-white">My Account</button>
+                  <button type="button"
+                          class="btn btn-sm primary-bg primary-outline text-white dropdown-toggle dropdown-toggle-split"
+                          data-toggle="dropdown" aria-haspopup="true"
+                          aria-expanded="false">
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <div class="dropdown-menu position-absolute">
+
+                    <a class="dropdown-item" href="#">Account</a>
+                    <div class="dropdown-divider"></div>
+
+                    <a class="dropdown-item" href="#">Orders</a>
+                    <div class="dropdown-divider"></div>
+
+                    {% if not user.is_authenticated %}
+                      <a href="{% url 'register' %}" class="dropdown-item py-0">Register</a>
+                      <a href="{% url 'login' %}" class="dropdown-item py-0">Login</a>
+                      {% else %}
+                      <a href="{% url 'logout' %}" class="dropdown-item" id="logoutHolder">
+                        <span class="mr-1">{{ user.username }}, </span>
+                        <span class="">Logout</span>
+                      </a>
+                      {% endif %}
+
+                  </div>
+                </div>
+            </li>
+            <li class="nav-item mr-md-0 mr-2 ml-0">
+                <a href="{% url 'wishlist' %}" class="nav-link d-flex">
+                  <i class="fas fa-heart text-danger" style="font-size: 22px;"></i>
+                  <sup class="align-self-start primary-bg primary-outline cartIcon" id="wishlistIcon">{{ wishlistItemsTotal }}</sup>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'cart' %}" class="nav-link d-flex">
+                  <i class="fas fa-shopping-cart secondary-color-2" style="font-size: 22px"></i>
+                  <sup class="align-self-start primary-bg primary-outline cartIcon" id="cartIcon">{{ cartIconTotal }}</sup>
+                </a>
+            </li>
+        </div>
+    </ul>
+  </div>
+</nav>
+{% endblock %}

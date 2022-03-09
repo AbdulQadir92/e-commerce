@@ -1,0 +1,58 @@
+{% extends 'store/main.html' %}
+
+{% block content %}
+<div class="my-5 mr-md-3 mr-1 position-relative d-flex" id="moreCategoriesDiv">
+
+    <div class="more-categories-sidebar">
+        {% include 'store/moreCategoriesSidebar.html' %}
+    </div>
+
+    <div class="more-categories-content">
+    {% for moreCategory in moreCategories %}
+
+        {% if moreCategory.products %}
+
+        <div>
+            <h4 class="text-center text-sm-left mb-3">
+                {{ moreCategory.more_category }}
+            </h4>
+
+            {% for product in moreCategory.products %}
+            <a href="{% url 'more_category' product.more_category.id %}" class="d-none"></a>
+
+            <a href="{% url 'product_details' product.id %}">
+
+                <div class="card shadow bg-white border rounded text-center d-inline-block mb-2 mr-1 p-1 m-card-width">
+                    <img class="card-img-top m-category-img" src="{{ product.primary_image.url }}" alt="No image uploaded for the product">
+                    <div class="card-body p-2">
+                        <div class="text-justify txt-overflow description-height text-dark">
+                            {{ product.description }}
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-2 stars-spacing">
+                            <div class="rating-holder d-none">
+                                {{ product.rating }}
+                            </div>
+                            <div class="stars-holder">
+                                <i class="fa fa-star index-star" data-rating="1"></i>
+                                <i class="fa fa-star index-star" data-rating="2"></i>
+                                <i class="fa fa-star index-star" data-rating="3"></i>
+                                <i class="fa fa-star index-star" data-rating="4"></i>
+                                <i class="fa fa-star index-star" data-rating="5"></i>
+                            </div>
+                            <h5 class="mb-0 text-secondary">
+                                ${{ product.price }}
+                            </h5>
+                        </div>
+                    </div>
+
+                </div>
+            </a>
+            {% endfor %}
+            <button class="btn btn-sm primary-bg primary-outline d-block ml-auto see-more-btn" onclick="redirectToMoreCategory(this);">See More...</button>
+            {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

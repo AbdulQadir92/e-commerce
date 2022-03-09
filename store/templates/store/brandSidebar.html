@@ -1,0 +1,56 @@
+{% load static %}
+
+{% block content %}
+    <div class="ml-md-3 ml-1 mr-3 mr-md-0">
+        <h5>Brand</h5>
+        <ul class="nav flex-column ml-md-3 ml-0">
+            {% for brand in brands %}
+                {% if brand == checked_brand %}
+                <li class="nav-item ml-2">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="{{ brand.id }}" checked="checked">
+                        <a href="{% url 'brand' brand.id %}" class="nav-link">
+                            {{ brand }}
+                        </a>
+                        <a href="{% url 'more_categories' brand.subcategory.id %}" class="d-none"></a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item ml-2">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="{{ brand.id }}">
+                        <a href="{% url 'brand' brand.id %}" class="nav-link">
+                            {{ brand }}
+                        </a>
+                    </div>
+                </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+        <h5 class="mt-5 primary-color">Price</h5>
+        <ul class="nav flex-column ml-md-3 ml-2" id="sortByPriceUlBrand">
+
+            <li class="nav-item" data-price="0-50">
+                 Up to $50
+            </li>
+            <li class="nav-item" data-price="50-100">
+                 $50 to $100
+            </li>
+            <li class="nav-item" data-price="100-200">
+                 $100 to $200
+            </li>
+            <li class="nav-item" data-price="200-400">
+                 $200 to $400
+            </li>
+            <li class="nav-item" data-price="400-600">
+                 $400 to $600
+            </li>
+            <li class="nav-item" data-price="601-100000">
+                 Above $600
+            </li>
+
+        </ul>
+    </div>
+{% endblock %}
+

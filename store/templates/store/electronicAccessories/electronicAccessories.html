@@ -1,0 +1,44 @@
+{% load static %}
+
+{% block content %}
+  <!-- Electronic Accessories -->
+  <li class="nav-item category-nav-item px-2"
+      onmouseenter="showSubcategories('electronicAccessoriesSubcategories');"
+      onmouseleave="removeSubcategories('electronicAccessoriesSubcategories')"
+  >
+    <a href="#" class="nav-link">
+
+        <div class="d-flex justify-content-between">
+          <span>Electronic Accessories</span>
+          <i class="fa fa-chevron-right mr-0 mt-1"></i>
+        </div>
+
+        <div class="d-none subcategories" id="electronicAccessoriesSubcategories">
+          <div class="d-flex">
+            <div class="invisibleDiv"></div>
+            <div class="card shadow bg-white" style="width: 250px;">
+              <div class="card-body border pb-2 px-0 pt-1">
+
+                 <ul class="nav flex-column">
+                     <!-- Mobile Accessories -->
+                    {% include 'store/electronicAccessories/subCategories/mobileAccessories.html' %}
+
+                     <!-- Computer Accessories -->
+                    {% include 'store/electronicAccessories/subCategories/computerAccessories.html' %}
+
+                     <!-- Gaming Accessories -->
+                    {% include 'store/electronicAccessories/subCategories/gamingAccessories.html' %}
+
+                      <!-- Wearable -->
+                    {% include 'store/electronicAccessories/subCategories/wearable.html' %}
+
+                 </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </a>
+  </li>
+  <!-- Electronic Accessories / -->
+{% endblock %}

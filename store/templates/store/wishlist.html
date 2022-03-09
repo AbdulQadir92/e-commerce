@@ -1,0 +1,60 @@
+{% extends 'store/main.html' %}
+
+{% block content %}
+<div class="mx-3">
+    <div class="card shadow bg-white rounded border">
+        <div class="card-body text-center table-responsive">
+            <table class="table table-borderless table-hover" style="min-width: 768px;">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col"><h5 class="mb-0">Item</h5></th>
+                        <th scope="col"><h5 class="mb-0">Rating</h5></th>
+                        <th scope="col"><h5 class="mb-0">Price</h5></th>
+                        <th scope="col"><h5 class="mb-0">Shipping</h5></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in wish_list_items %}
+                    <tr class="border-bottom px-2">
+                        <td class="align-middle py-1" onclick="redirectToProduct(this);" style="cursor: pointer;">
+                            <img src="{{ item.primary_image.url }}" width="60" height="50">
+                        </td>
+                        <td class="align-middle px-md-0 px-2" onclick="redirectToProduct(this);" style="cursor: pointer;">
+                            <h6 class="text-secondary text-justify px-sm-3">{{ item.item }}</h6>
+                        </td>
+                        <td class="align-middle mb-2" style="width: 100px;">
+                            <h6 class="text-secondary d-none">{{ item.rating }}</h6>
+                            <div class="stars-holder mb-2">
+                                <i class="fa fa-star" data-rating="1"></i>
+                                <i class="fa fa-star" data-rating="2"></i>
+                                <i class="fa fa-star" data-rating="3"></i>
+                                <i class="fa fa-star" data-rating="4"></i>
+                                <i class="fa fa-star" data-rating="5"></i>
+                            </div>
+                        </td>
+                        <td class="align-middle">
+                            <h6 class="text-secondary">${{ item.price }}</h6>
+                        </td>
+                        <td class="align-middle">
+                            <h6 class="text-secondary">${{ item.shipping }}</h6>
+                        </td>
+                        <td class="align-middle">
+                            <span class="d-none">{{ item.product_id }}</span>
+                            <a href="{% url 'product_details' item.product_id %}" class="d-none"></a>
+                            <div class="mb-2 pr-2">
+                                 <i class="fa fa-trash text-danger" onclick="deleteWishlistItem(this);" style="cursor: pointer"></i>
+                            </div>
+                            <a href="{% url 'delete_wishlist_item' %}" class="d-none"></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% load static %}
+
+{% block content %}
+
+<div class="zoom-show" href="{{ product.primary_image.url }}">
+  <img src="{{ product.primary_image.url }}" id="show-img">
+</div>
+
+<div class="small-img">
+  <img src="images/online_icon_right@2x.png" class="icon-left" alt="" id="prev-img" />
+  <div class="small-container">
+    <div id="small-img-roll">
+      <img src="{{ product.primary_image.url }}" class="show-small-img" alt="No image to display" />
+      {% if product.secondary_image1.url != '' %}
+         <img src="{{ product.secondary_image1.url }}" class="show-small-img" alt="No image to display" />
+      {% endif %}
+      {% if product.secondary_image2.url != '' %}
+         <img src="{{ product.secondary_image2.url }}" class="show-small-img" alt="No image to display" />
+      {% endif %}
+      {% if product.secondary_image3.url != '' %}
+         <img src="{{ product.secondary_image3.url }}" class="show-small-img" alt="No image to display" />
+      {% endif %}
+    </div>
+  </div>
+  <img src="images/online_icon_right@2x.png" class="icon-right" alt="" id="next-img" />
+</div>
+
+
+<!--<div id="ezPlusContainer" class="bg-light">-->
+<!--    <img id="mainImg" src="{{ product.primary_image.url }}" style="height: 30em" data-zoom-image="{{ product.primary_image.url }}" />-->
+<!--    <div id="gallery" class="mt-1">-->
+<!--        <a href="#" data-image="{{ product.primary_image.url }}" data-zoom-image="{{ product.primary_image.url }}">-->
+<!--           <img src="{{ product.primary_image.url }}" class="galleryImg" />-->
+<!--        </a>-->
+<!--        {% if product.secondary_image1.url != '' %}-->
+<!--        <a href="#" data-image="{{ product.secondary_image1.url }}" data-zoom-image="{{ product.secondary_image1.url }}">-->
+<!--           <img src="{{ product.secondary_image1.url }}" class="galleryImg">-->
+<!--        </a>-->
+<!--        {% endif %}-->
+<!--        {% if product.secondary_image2.url != '' %}-->
+<!--        <a href="#" data-image="{{ product.secondary_image2.url }}" data-zoom-image="{{ product.secondary_image2.url }}">-->
+<!--           <img src="{{ product.secondary_image2.url }}" class="galleryImg" />-->
+<!--        </a>-->
+<!--        {% endif %}-->
+<!--        {% if product.secondary_image3.url != '' %}-->
+<!--        <a href="#" data-image="{{ product.secondary_image3.url }}" data-zoom-image="{{ product.secondary_image3.url }}">-->
+<!--           <img src="{{ product.secondary_image3.url }}" class="galleryImg">-->
+<!--        </a>-->
+<!--        {% endif %}-->
+<!--    </div>-->
+<!--</div>-->
+{% endblock %}

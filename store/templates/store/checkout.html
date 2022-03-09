@@ -1,0 +1,96 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="d-flex mx-3 mb-3 flex-column flex-md-row">
+
+        <div class="card shadow bg-white rounded border mb-md-0 mb-3" style="width: 60%;" id="orderSummary">
+            <div class="card-body text-center">
+                <div class="text-left">
+                    <a href="{% url 'cart' %}" class="btn btn-sm primary-bg primary-outline">Back To Cart</a>
+                </div>
+                <hr>
+                <h3 class="text-center d-inline-block mb-3">Order Summary</h3>
+
+                <div class="card-body px-1 d-flex flex-column flex-md-row border-top border-bottom">
+                    <div class="d-flex align-items-baseline mr-auto">
+                        <h5 class="text-secondary mb-0 mr-1">Items:</h5>
+                        <h5 class="mb-0">{{ cartIconTotal }}</h5>
+                    </div>
+                    <div class="d-flex align-items-baseline">
+                        <h5 class="text-secondary mb-md-0 mb-1 mr-1">Shipping:</h5>
+                        <h5 class="mb-0" id="checkoutShipping">${{ shipping }}</h5>
+                    </div>
+                    <div class="d-flex align-items-baseline ml-md-auto">
+                        <h5 class="text-secondary mb-0 mr-1">Total:</h5>
+                        <h5 class="mb-0" id="checkoutTotal">${{ total }}</h5>
+                    </div>
+                </div>
+
+                <div class="card-body px-1 mb-3 border-bottom">
+                    <div class="d-flex align-items-baseline justify-content-center">
+                        <h5 class="text-secondary mb-0 mr-1 text-left">
+                            <span>Total</span><span class="text-sm">(including shipping):</span>
+                        </h5>
+                        <h5 class="mb-0" id="">${{ grandTotal }}</h5>
+                    </div>
+                </div>
+
+                <div class=" table-responsive">
+                <table class="table table-borderless table-hover" style="min-width: 600px;">
+                      <thead>
+                        <tr>
+                          <th class="d-none"></th>
+                          <th scope="col"></th>
+                          <th scope="col" class="text-left pl-3"><h5 class="mb-0">Item</h5></th>
+                          <th scope="col" class="text-left pl-1"><h5 class="mb-0">Price</h5></th>
+                          <th scopt="col" class="text-left pl-1"><h5 class="mb-0">Shipping</h5></th>
+                          <th scope="col"><h5 class="mb-0">Quantity</h5></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for item in order_items %}
+                        <tr class="border-bottom">
+                          <td class="d-none">{{ item.id }}</td>
+                          <td class="align-middle py-1"><img src="{{item.primary_image.url}}" alt="" width="60" height="50"></td>
+                          <td class="align-middle px-3"><h6 class="text-secondary text-justify">{{item.item}}</h6></td>
+                          <td class="align-middle"><h6 class="checkout-item-price">${{item.price}}</h6></td>
+                            <td class="align-middle"><h6 class="checkout-item-shipping">${{item.shipping}}</h6></td>
+                          <td class="align-middle"><h6 class="checkout-item-quantity">{{item.quantity}}x</h6></td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card shadow bg-white rounded ml-md-3 p-3 border" style="width: 40%" id="shippingInformation">
+            <h3 class="card-title text-center">Shipping Information</h3>
+            <form action="" method="">
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" class="form-control form-control-sm" value="{{ shippingInformation.address }}" readonly="readonly">
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm">
+                        <label>City</label>
+                        <input type="text" class="form-control form-control-sm" value="{{ shippingInformation.city }}" readonly="readonly">
+                    </div>
+                    <div class="form-group col-sm">
+                        <label>State/Province</label>
+                        <input type="text" class="form-control form-control-sm" value="{{ shippingInformation.state_or_province }}" readonly="readonly">
+                    </div>
+                    <div class="form-group col-sm">
+                        <label>Country</label>
+                        <input type="text" class="form-control form-control-sm" value="{{ shippingInformation.country }}" readonly="readonly">
+                    </div>
+                </div>
+                <button class="btn btn-sm btn-block primary-bg primary-outline" type="button">Continue To Pay</button>
+            </form>
+        </div>
+
+    </div>
+{% endblock %}

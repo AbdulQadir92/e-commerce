@@ -1,0 +1,93 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="mx-3">
+        <div class="card shadow bg-white rounded border mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-2">
+                    <a href="{% url 'home' %}" class="btn btn-sm primary-bg primary-outline">Back To Shopping</a>
+                </div>
+                <hr class="mb-1 mb-md-2">
+                <div class="d-flex flex-md-row flex-column justify-content-around align-items-baseline mt-md-4 mt-0">
+                    <div class="d-flex align-items-baseline mb-1">
+                        <h5 class="text-secondary mb-0 mr-1">Items:</h5>
+                        <h5 class="mb-0" id="cartQuantity"></h5>
+                    </div>
+                    <div class="d-flex align-items-baseline mb-1">
+                        <h5 class="text-secondary mb-0 mr-1">Shipping:</h5>
+                        <h5 class="mb-0" id="cartShipping"></h5>
+                    </div>
+                    <div class="d-flex align-items-baseline mb-2">
+                        <h5 class="text-secondary mb-0 mr-1">Total:</h5>
+                        <h5 class="mb-0" id="cartTotal"></h5>
+                    </div>
+                    <a href="{% url 'checkout' %}" class="btn btn-sm primary-bg primary-outline">Checkout</a>
+                </div>
+            </div>
+        </div>
+
+         <div class="card shadow bg-white rounded border mb-3">
+             <div class="card-body text-center table-responsive">
+                  <table class="table table-borderless table-hover" style="min-width: 766px;">
+                      <thead>
+                        <tr>
+                          <th scope="col"></th>
+                          <th scope="col"><h5 class="mb-0">Item</h5></th>
+                          <th scope="col"><h5 class="mb-0">Price</h5></th>
+                          <th scope="col"><h5 class="mb-0">Shipping</h5></th>
+                          <th scope="col"><h5 class="mb-0">Quantity</h5></th>
+                          <th scope="col"><h5 class="mb-0">Subtotal</h5></th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                      {% for item in order_items %}
+                        <tr class="border-bottom">
+                          <td class="d-none">{{ item.id }}</td>
+                          <td class="d-none">
+                              <a href="{% url 'increment_quantity' %}"></a>
+                              <a href="{% url 'decrement_quantity' %}"></a>
+                              <a href="{% url 'delete_cart_item' %}"></a>
+                          </td>
+                          <td class="align-middle py-1" onclick="redirectToProduct(this)" style="cursor: pointer;">
+                              <img src="{{item.primary_image.url}}" alt="" width="60" height="50">
+                          </td>
+                          <td class="align-middle px-md-0 px-2" onclick="redirectToProduct(this)" style="cursor: pointer;">
+                              <h6 class="text-secondary text-justify px-sm-3">{{item.item}}</h6>
+                          </td>
+                          <td class="align-middle">
+                              <h6 class="text-secondary">${{item.price}}</h6>
+                          </td>
+                          <td class="align-middle">
+                              <h6 class="text-secondary item-shipping">${{item.shipping}}</h6>
+                          </td>
+                          <td class="align-middle">
+                               <div class="d-flex justify-content-center align-items-end mb-2">
+                                    <span class="plus-minus-btn mr-1 minus-btn">-</span>
+                                    <h6 class="text-secondary mb-1 text-center d-inline-block item-quantity">{{item.quantity}}</h6>
+                                    <span class="plus-minus-btn ml-1 plus-btn">+</span>
+                                </div>
+                          </td>
+                          <td class="align-middle">
+                              <h6 class="text-secondary item-total">${{item.total}}</h6>
+                          </td>
+                          <td class="align-middle">
+                              <div class="mb-2 pr-2">
+                                  <i class="fa fa-trash text-danger" onclick="deleteCartItem(this)" style="cursor: pointer;"></i>
+                              </div>
+                          </td>
+                          <td class="d-none">
+                              <span>{{ item.product_id }}</span>
+                              <a href="{% url 'product_details' item.product_id %}" class="d-none"></a>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                  </table>
+              </div>
+         </div>
+
+    </div>
+
+{% endblock %}

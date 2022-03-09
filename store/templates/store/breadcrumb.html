@@ -1,0 +1,55 @@
+{% load static %}
+
+{% block content %}
+  <div id="breadcrumbHolder">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0 py-2 secondary-bg-3 border">
+          <li class="mr-3 mr-md-5 primary-bg primary-outline px-1 rounded text-white"
+              style="cursor: pointer;"
+              id="menuIcon"
+              onclick="toggleSidebar();"
+          >
+            <i class="fa fa-bars" aria-hidden="true"></i>
+            Categories
+          </li>
+
+          <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+
+
+          {% if request.path == '/accounts/register/' %}
+             <li class="breadcrumb-item active" aria-current="page">Register</li>
+          {% elif request.path == '/accounts/login/' %}
+             <li class="breadcrumb-item active" aria-current="page">Login</li>
+          {% elif '/more_categories/' in request.path %}
+             <li class="breadcrumb-item active" aria-current="page">{{ subcategory }}</li>
+          {% elif '/brand/' in request.path %}
+             <li class="breadcrumb-item"><a href="{% url 'more_categories' checked_brand.subcategory.id %}">{{ checked_brand.subcategory }}</a></li>
+             <li class="breadcrumb-item active" aria-current="page">{{ checked_brand }}</li>
+          {% elif '/more_category/' in request.path %}
+             <li class="breadcrumb-item"><a href="{% url 'more_categories' moreCategory.subcategory.id %}">{{ moreCategory.subcategory }}</a></li>
+             <li class="breadcrumb-item active" aria-current="page">{{ moreCategory }}</li>
+          {% elif '/sort_by_price/' in request.path %}
+             <li class="breadcrumb-item"><a href="{% url 'more_categories' subcategory.id %}">{{ subcategory }}</a></li>
+<!--             <li class="breadcrumb-item active" aria-current="page">Price</li>-->
+          {% elif '/sort_by_price_more_category/' in request.path %}
+             <li class="breadcrumb-item"><a href="{% url 'more_categories' moreCategory.subcategory.id %}">{{ moreCategory.subcategory }}</a></li>
+             <li class="breadcrumb-item active" aria-current="page">{{ moreCategory }}</li>
+          {% elif '/sort_by_price_brand/' in request.path %}
+             <li class="breadcrumb-item"><a href="{% url 'more_categories' checked_brand.subcategory.id %}">{{ checked_brand.subcategory }}</a></li>
+             <li class="breadcrumb-item active" aria-current="page">{{ checked_brand }}</li>
+          {% elif 'product_details' in request.path %}
+             <li class="breadcrumb-item"><a href="{% url 'more_categories' subcategory.id %}">{{ subcategory }}</a></li>
+             <li class="breadcrumb-item"><a href="{% url 'more_category' moreCategory.id %}">{{ moreCategory }}</a></li>
+             <li class="breadcrumb-item active" aria-current="page">{{ product.description }}</li>
+          {% elif request.path == '/cart/' %}
+             <li class="breadcrumb-item active" aria-current="page">Cart</li>
+          {% elif request.path == '/wishlist/' %}
+             <li class="breadcrumb-item active" aria-current="page">Wish List</li>
+          {% elif request.path == '/checkout/' %}
+             <li class="breadcrumb-item" ><a href="{% url 'cart' %}">Cart</a></li>
+             <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+          {% endif %}
+        </ol>
+      </nav>
+  </div>
+{% endblock %}

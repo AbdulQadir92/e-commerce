@@ -1,0 +1,193 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="card shadow bg-white rounded border mx-3">
+        <a href="{% url 'wishlist_item' %}" class="d-none" id="wishlistUrl"></a>
+        <div class="d-flex flex-column flex-lg-row text-center">
+
+
+            <div id="ezPlusHolder">
+                {% include 'store/productZoom.html' %}
+            </div>
+
+            <div id="productDetailsParent" class="mt-3 mt-lg-0">
+                <div class="d-flex flex-column flex-sm-row">
+                    <div class="p-0 text-justify border-left border-bottom ml-md-3" id="productDetailsHolder">
+                        <div class="card-body px-2">
+                            <div class="d-none" id="productId">{{ product.id }}</div>
+                            <a href="{% url 'order_item' %}" class="d-none" id="orderItemUrl"></a>
+                            <div class="description-height product-txt-overflow" id="productDescription">
+                                {{ product.description }}
+                            </div>
+
+                           <div class="d-flex flex-column flex-sm-row align-items-end justify-content-between mt-4 stars-spacing pb-2 border-bottom">
+                               <div class="rating-holder d-none" id="productRating">{{ product.rating }}</div>
+                                <div class="stars-holder mr-auto">
+                                    <i class="fa fa-star" data-rating="1"></i>
+                                    <i class="fa fa-star" data-rating="2"></i>
+                                    <i class="fa fa-star" data-rating="3"></i>
+                                    <i class="fa fa-star" data-rating="4"></i>
+                                    <i class="fa fa-star" data-rating="5"></i>
+                                </div>
+                               <div class="d-flex align-items-center ml-xl-5 mr-auto" style="font-size: 14px;">
+                                    <h5 class="mb-0">Price:</h5>
+                                    <h5 class="mb-0 ml-1 text-secondary" id="productPrice">${{ product.price }}</h5>
+                                </div>
+
+                               <div class="d-flex align-items-center mr-auto mr-md-1" style="font-size: 14px;">
+                                    <h5 class="mb-0">Shipping Fee:</h5>
+                                    <h5 class="text-secondary mb-0 ml-1" style="font-weight: bold;" id="productShipping">${{ product.shipping }}</h5>
+                                </div>
+                            </div>
+
+                            <div class="d-flex mt-3">
+                               <button class="btn btn-sm primary-bg primary-outline mr-2 product-btn" id="wishlistBtn" onclick="addProductToCartOrWishlist('#wishlistUrl');" data-toggle="modal" data-target="#wishlistModal">
+                                   <span>Add to Wish List</span>
+                                   <i class="fas fa-heart ml-1 text-danger"></i>
+                               </button>
+                                <button class="btn btn-sm primary-bg primary-outline cart-btn product-btn" data-toggle="modal" data-target="#buyModal">Buy Now</button>
+                                <button class="btn btn-sm primary-bg primary-outline ml-2 cart-icon-btn product-btn" id="cartBtn" onclick="addProductToCartOrWishlist('#orderItemUrl');" data-toggle="modal" data-target="#addToCartModal">
+                                    <span>Add To Cart</span>
+                                    <i class="fas fa-shopping-cart secondary-color-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body border-left border-bottom border-right p-2 mr-3 mt-5 mt-sm-0" id="shippingInformationHolder">
+                        <div class="mt-1 text-left border-bottom">
+                            <h6>Delivery</h6>
+                            <div class="ml-3 pb-1" style="font-size: 14px;">
+                                <div>
+                                    <span class="mr-2">Home Delivery:</span>
+                                    {% if product.home_delivery %}
+                                        <span class="text-secondary">{{ product.home_delivery }}</span>
+                                    {% else %}
+                                        <span class="text-secondary">Not Specified</span>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <span class="mr-2">Cash on Delivery:</span>
+                                    {% if product.cash_on_delivery %}
+                                        <span class="text-secondary">Available</span>
+                                    {% else %}
+                                        <span class="text-secondary">Not Available</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2 text-left border-bottom">
+                            <h6>Service</h6>
+                            <div class="ml-3 pb-1" style="font-size: 14px;">
+                                <div>
+                                    <span class="mr-2">Return:</span>
+                                    {% if product.return_service %}
+                                        <span class="text-secondary">{{ product.return_service }}</span>
+                                        {% if not product.change_of_mind %}
+                                            <small class="text-secondary" style="font-weight: bold">(Change of mind is not applicable)</small>
+                                        {% endif %}
+                                    {% else %}
+                                        <span class="text-secondary">Not Specified</span>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <span class="mr-2">Brand Warranty:</span>
+                                    {% if product.brand_warranty %}
+                                        <span class="text-secondary">{{ product.brand_warranty }}</span>
+                                    {% else %}
+                                        <span class="text-secondary">Not Available</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="moreDetails" class="ml-3">
+                    More Details
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {% if not user.is_authenticated %}
+    <div class="modal fade" id="buyModal" tabindex="-1" role="dialog" aria-labelledby="buyModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body d-flex justify-content-center">
+                    <div class="text-center" style="font-weight: bold;">
+                        <h5 class="mt-3">Login or Register to buy an item</h5>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm modal-close-btn" data-dismiss="modal">Close</button>
+                    <a href="{% url 'register' %}" class="btn btn-sm primary-bg primary-outline">Register</a>
+                    <a href="{% url 'login' %}" class="btn btn-sm primary-bg primary-outline">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <div class="modal fade" id="addToCartModal" tabindex="-1" role="dialog" aria-labelledby="addToCartModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body d-flex justify-content-center">
+                    <div class="text-center" style="font-weight: bold;">
+                        <div class="border-bottom pb-3">Item was not added to cart</div>
+                        <h5 class="mt-3">Login or Register to add item to cart</h5>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm modal-close-btn" data-dismiss="modal">Close</button>
+                    <a href="{% url 'register' %}" class="btn btn-sm primary-bg primary-outline">Register</a>
+                    <a href="{% url 'login' %}" class="btn btn-sm primary-bg primary-outline">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="wishlistModal" tabindex="-1" role="dialog" aria-labelledby="wishlistModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body d-flex justify-content-center">
+                    <div class="text-center" style="font-weight: bold;">
+                        <div class="border-bottom pb-3">Item was not added to Wish List</div>
+                        <h5 class="mt-3">Login or Register to add item to Wish List</h5>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm modal-close-btn" data-dismiss="modal">Close</button>
+                    <a href="{% url 'register' %}" class="btn btn-sm primary-bg primary-outline">Register</a>
+                    <a href="{% url 'login' %}" class="btn btn-sm primary-bg primary-outline">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+<!--    <div class="my-5 w-75 mx-auto">-->
+<!--        <div class="card shadow bg-white border">-->
+<!--            <div class="card-body">-->
+<!--                <div class="form-group">-->
+<!--                    <label>Write your review</label>-->
+<!--                    <textarea class="form-control">-->
+<!--                    </textarea>-->
+<!--                </div>-->
+
+<!--                <div class="d-flex justify-content-between align-items-baseline">-->
+<!--                    <div class="d-flex stars-container justify-content-between">-->
+<!--                        <i class="fa fa-star d-inline-block pr-1 product-details-star" data-rating="1"></i>-->
+<!--                        <i class="fa fa-star d-inline-block pr-1 product-details-star" data-rating="2"></i>-->
+<!--                        <i class="fa fa-star d-inline-block pr-1 product-details-star" data-rating="3"></i>-->
+<!--                        <i class="fa fa-star d-inline-block pr-1 product-details-star" data-rating="4"></i>-->
+<!--                        <i class="fa fa-star d-inline-block product-details-star" data-rating="5"></i>-->
+<!--                    </div>-->
+<!--                    <button class="btn btn-sm primary-bg primary-outline">Submit</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+{% endblock %}
